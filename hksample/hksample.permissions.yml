@@ -1,0 +1,6 @@
+administer hksample edit:
+  title: 'Administer hksample Edit'
+administer hksample delete:
+  title: 'Administer hksample Delete'
+access hksample list:
+  title: 'Access hksample'

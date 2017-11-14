@@ -1,0 +1,16 @@
+{
+    "name": "hostspace/purprocess",
+    "description": "一个简单的采购管理过程",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "johny",
+            "email": "Davilee@1942970.no-reply.drupal.org"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "require": {
+        "php": "^5.3.3 || ^7.0"
+    }
+}
+

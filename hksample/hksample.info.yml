@@ -1,0 +1,5 @@
+name: 通用模型
+type: module
+description: 用于基础开发通用模块
+core: 8.x
+package: Model

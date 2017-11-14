@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains blank.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function blank_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the blank module.
+    case 'help.page.blank':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('SmartAdmin Blank page') . '</p>';
+      return $output;
+
+    default:
+  }
+}

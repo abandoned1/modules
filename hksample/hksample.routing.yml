@@ -1,0 +1,21 @@
+entity.hksample.add_form:
+  path: 'admin/hksample/add'
+  defaults:
+    _entity_form: 'hksample.default'
+    _title: '通用模型'
+  requirements:
+    _permission: 'administer hksample edit'
+entity.hksample.edit_form:
+  path: 'admin/hksample/{hksample}/edit'
+  defaults:
+    _entity_form: 'hksample.default'
+    _title: '通用模型'
+  requirements:
+    _permission: 'administer hksample edit'
+entity.hksample.collection:
+  path: '/admin/hksample/list'
+  defaults:
+    _entity_list: 'hksample'
+    _title: '通用模型工作台'
+  requirements:
+    _permission: 'access hksample list'

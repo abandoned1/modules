@@ -1,0 +1,15 @@
+{
+    "name": "hostspace/examples",
+    "description": "A short description of what your package does",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "johny",
+            "email": "Davilee@1942970.no-reply.drupal.org"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "require": {
+        "php": "^5.3.3 || ^7.0"
+    }
+}

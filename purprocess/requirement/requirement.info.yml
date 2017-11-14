@@ -1,0 +1,9 @@
+name: 需求单
+type: module
+description: 管理需求相关流程
+core: 8.x
+package: Purchase process
+dependencies:
+  - part
+  - member
+  - cshs
