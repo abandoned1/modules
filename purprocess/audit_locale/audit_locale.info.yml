@@ -2,4 +2,4 @@ name: Audit_locale
 type: module
 description: 为各种模块添加审批流程模型
 core: 8.x
-package: Purchase process
+package: '采购管理系统'

@@ -33,7 +33,7 @@
         url: Drupal.url('ajax/cg_statis/paypro/out/statistic/collection'),
         datatype: "json",
 			  height : 'auto',
-        colNames: ['ID', '收款方', '收款银行', '收款账号', '币种', '金额', '已付', '未付', '开始时间', '截止时间'],
+        colNames: ['ID', '收款方', '收款银行', '收款账号', '币种', '金额总计', '已付', '未付', '开始时间', '截止时间'],
         colModel:[
           {name: 'id', index: 'id', sorttype: "int", width: 30, editable: false},
           {name: 'name', index: 'name', editable: false},

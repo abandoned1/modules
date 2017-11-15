@@ -3,7 +3,7 @@ type: module
 description: Drupal Excel类型操作-包括导入、导出。文件类型包含xls,xlsx,pdf,ods等
 core: 8.x
 version: VERSION
-package: IK
+package: '采购管理系统-可用'
 dependencies:
   - phpexcel
   - paypro
