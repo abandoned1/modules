@@ -1,0 +1,47 @@
+entity.kaoqin.admin:
+  path: '/admin/kaoqin'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: '考勤管理'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+entity.kaoqin.add_form:
+  path: 'admin/kaoqin/add'
+  defaults:
+    _entity_form: 'kaoqin.default'
+    _title: 'Kaoqin'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.kaoqin.edit_form:
+  path: 'admin/kaoqin/{kaoqin}/edit'
+  defaults:
+    _entity_form: 'kaoqin.default'
+    _title: 'Kaoqin'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.kaoqin.listbuilder:
+  path: 'admin/kaoqin/list'
+  defaults:
+    _entity_list: 'kaoqin'
+    _title: 'Kaoqin List'
+  requirements:
+    _permission: 'administer kaoqin list builder'
+
+entity.kaoqin.import:
+  path: 'admin/kaoqin/import'
+  defaults:
+    _form: '\Drupal\kaoqin\Form\KaoqinImportForm'
+    _title: '导入考勤数据'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+admin.kaoqin.download:
+  path: 'admin/kaoqin/export'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::exportKaoqin'
+    _title: '考勤数据模板'
+  requirements:
+    _permission: 'administer kaoqin overview'

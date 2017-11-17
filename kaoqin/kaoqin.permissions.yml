@@ -1,0 +1,8 @@
+administer kaoqin overview:
+  title: 'Administer kaoqin overview'
+administer kaoqin edit:
+  title: 'Administer kaoqin edit'
+administer kaoqin delete:
+  title: 'Administer kaoqin delete'
+administer kaoqin list builder:
+  title: 'Administer kaoqin list builder'

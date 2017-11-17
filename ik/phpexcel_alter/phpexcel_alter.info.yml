@@ -6,4 +6,3 @@ version: VERSION
 package: '采购管理系统-可用'
 dependencies:
   - phpexcel
-  - paypro

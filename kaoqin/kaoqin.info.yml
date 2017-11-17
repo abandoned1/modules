@@ -1,5 +1,5 @@
-name: kaoqin
+name: 考勤管理
 type: module
-description: 考勤历史统计
+version: VERSION
 core: 8.x
 package: 考勤管理
