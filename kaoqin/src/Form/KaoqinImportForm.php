@@ -103,7 +103,7 @@ class KaoqinImportForm extends FormBase {
     drupal_set_message(t("Oops ! An error occured !"), 'error');
     }
 
-    return 5;
+    return count($result[0]);
   }
 
   private function updateKaoqin($result) {
@@ -122,7 +122,7 @@ class KaoqinImportForm extends FormBase {
       ];
       $i++;
     }
-    \Drupal::service('kaoqin.kaoqinservice')->save($datas);
+    \Drupal::service('kaoqin.kaoqinservice')->saveImportData($datas);
   }
 
 

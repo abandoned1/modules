@@ -45,3 +45,43 @@ admin.kaoqin.download:
     _title: '考勤数据模板'
   requirements:
     _permission: 'administer kaoqin overview'
+
+entity.kaoqin.config_form:
+  path: 'admin/kaoqin/config'
+  defaults:
+    _form: '\Drupal\kaoqin\Form\KaoqinSettingsForm'
+    _title: '考勤设置'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.upon.add_form:
+  path: 'admin/kaoqin/upon/add'
+  defaults:
+    _entity_form: 'upon.default'
+    _title: '上班管理'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.upon.edit_form:
+  path: 'admin/kaoqin/upon/{upon}/edit'
+  defaults:
+    _entity_form: 'upon.default'
+    _title: '上班管理'
+  requirements:
+    _permission: 'administer kaoqin edit'
+
+entity.kaoqin.upon.listbuilder:
+  path: 'admin/kaoqin/upon/list'
+  defaults:
+    _entity_list: 'upon'
+    _title: '上班管理列表'
+  requirements:
+    _permission: 'administer kaoqin list builder'
+
+entity.kaoqin.upon.update:
+  path: 'admin/kaoqin/upon/update'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::updateUpon'
+    _title: '排班设置'
+  requirements:
+    _permission: 'administer kaoqin overview'

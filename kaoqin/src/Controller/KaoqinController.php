@@ -15,15 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 class KaoqinController extends ControllerBase {
 
   /**
-   * @description 考勤数据导入.
-   */
-  public function getImportKaoqin() {
-
-    $build = ['#markup' => 'fdafd'];
-    return $build;
-  }
-
-  /**
    * @description 模板导出.
    */
   public function exportKaoqin(){
@@ -34,7 +25,16 @@ class KaoqinController extends ControllerBase {
     Header( "Accept-Length: " .filesize($filename));
     header( "Content-Disposition:  attachment;  filename= {$date}.xlsx");
     readfile($filename);
-    return new Response('ok');
+    return new Response('success');
   }
 
+  /**
+   * @description 排班设置页面.
+   */
+  public function updateUpon() {
+    $build = [];
+    $build['upon']['#theme'] = 'upon_update';
+    $build['#attached']['library'] = ['kaoqin/paibanconfig'];
+    return $build;
+  }
 }

@@ -26,7 +26,7 @@ class KaoqinService {
   /**
    * Kaoqin entity table save.
    */
-  public function save($datas) {
+  public function saveImportData($datas) {
     foreach ($datas as $data) {
       $kaoqin_entity = \Drupal::entityTypeManager()
         ->getStorage('kaoqin')
