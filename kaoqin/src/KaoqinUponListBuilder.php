@@ -36,11 +36,23 @@ class KaoqinUponListBuilder extends EntityListBuilder {
         'field' => 'id',
         'specifier' => 'id',
       ],
-
-      'banci' => [
+      'user' => [
+        'data' => $this->t('姓名'),
+        'field' => 'user',
+        'specifier' => 'user',
+      ],
+      'depart' => [
+        'data' => $this->t('部门'),
+        'field' => 'depart',
+        'specifier' => 'depart',
+      ],
+      'type' => [
         'data' => $this->t('班次'),
-        'field' => 'banci',
-        'specifier' => 'banci',
+        'field' => 'type',
+        'specifier' => 'type',
+      ],
+      'datetime' => [
+        'data' => $this->t('日期'),
       ],
       'morningsign' => [
         'data' => $this->t('上班'),
@@ -72,7 +84,10 @@ class KaoqinUponListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     $row['id'] = $entity->id();
-    $row['banci'] = $entity->get('banci')->value;
+    $row['user'] = $entity->get('user')->entity->get('realname')->value;
+    $row['depart'] = $entity->get('depart')->entity->label();
+    $row['type'] = $entity->get('type')->value == 1 ? '白班' : '夜班';
+    $row['datetime'] = date('Y-m-d', $entity->get('datetime')->value);
     $row['morningsign'] = date('H:i', $entity->get('morningsign')->value);
     $row['afternoonsign'] = date('H:i', $entity->get('afternoonsign')->value);
     $row['uid'] = $entity->get('uid')->entity->getUsername();
@@ -87,14 +102,12 @@ class KaoqinUponListBuilder extends EntityListBuilder {
   public function getOperations(EntityInterface $entity) {
     $operations = parent::getOperations($entity);
 
-    if (isset($operations['edit'])) {
-      $operations['edit'] = [
-        'title' => $this->t('Edit'),
-        'weight' => 10,
-        'url' => $entity->urlInfo('edit-form'),
-      ];
-    }
-
+    $operations['delete'] = [
+      'title' => $this->t('delete'),
+      'weight' => 10,
+      'url' => $entity->urlInfo('delete-form'),
+    ];
+    unset($operations['edit']);
     return $operations;
   }
 

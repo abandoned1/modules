@@ -18,7 +18,8 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *     "list_builder" = "Drupal\kaoqin\KaoqinUponListBuilder",
  *     "access" = "Drupal\kaoqin\KaoqinAccessControlHandler",
  *     "form" = {
- *       "default" = "Drupal\kaoqin\Form\KaoqinUponForm"
+ *       "default" = "Drupal\kaoqin\Form\KaoqinUponForm",
+ *       "delete" = "Drupal\kaoqin\Form\KaoqinUponDeleteForm",
  *     }
  *   },
  *   entity_keys = {
@@ -27,6 +28,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *   },
  *   links = {
  *     "edit-form" = "/admin/kaoqin/upon/{upon}/edit",
+ *     "delete-form" = "/admin/kaoqin/upon/{upon}/delete",
  *   }
  * )
  */
@@ -67,6 +69,19 @@ class Upon extends ContentEntityBase {
       ->setDefaultValue(1)
       ->setDescription(t('班次.'));
 
+    $fields['icontype'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('事件类型图标'))
+      ->setDescription(t('事件类型图标.'));
+
+    $fields['allday'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('全天事件'))
+      ->setDefaultValue(FALSE)
+      ->setDescription(t('全天事件.'));
+
+    $fields['iconcolor'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('事件颜色'))
+      ->setDescription(t('事件颜色.'));
+
     // 使用部门术语列表.
     $fields['depart'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('部门'))
@@ -100,6 +115,17 @@ class Upon extends ContentEntityBase {
       ->setDefaultValue(0)
       ->setDescription(t('下班.'));
 
+    $fields['description'] = BaseFieldDefinition::create('text_long')
+      ->setLabel(t('描述'))
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'text_textfield',
+        'weight' => 15,
+      ])
+      ->setDisplayConfigurable('form', TRUE);
+
+
+
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('申请人'))
       ->setSetting('target_type', 'user');
@@ -120,3 +146,4 @@ class Upon extends ContentEntityBase {
   }
 
 }
+

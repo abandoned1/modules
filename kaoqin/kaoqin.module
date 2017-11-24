@@ -19,3 +19,8 @@ function kaoqin_theme() {
     ],
   ];
 }
+
+function kaoqin_form_kaoqin_addemp_form_alert(&$form, &$form_state, $form_id) {
+  $form['name']['#form_placeholder'] = TRUE;
+  $form['description']['#form_placeholder'] = TRUE;
+}

@@ -35,5 +35,33 @@ class KaoqinService {
     }
   }
 
+  /**
+   * @description 保存考勤排班计划.
+   */
+  public function saveKaoqinUpon($data) {
+    $kaoqin_upon_entity = \Drupal::entityTypeManager()
+      ->getStorage('upon')
+      ->create($data);
+    $kaoqin_upon_entity->save();
+
+    return $kaoqin_upon_entity->id();
+  }
+
+  /**
+   * @description 更新考勤排班.
+   * @return 1. success 0. fail
+   */
+  public function updateKaoqinUpon($id, $data) {
+    $entity_kaoqin_upon = \Drupal::entityTypeManager()->getStorage('upon')->load($id);
+    if (empty($entity_kaoqin_upon)) {
+      return 0;
+    }
+    $entity_kaoqin_upon->set('datetime', $data['datetime']);
+    $entity_kaoqin_upon->set('morningsign', $data['morningsign']);
+    $entity_kaoqin_upon->set('afternoonsign', $data['afternoonsign']);
+    $entity_kaoqin_upon->save();
+
+    return $entity_kaoqin_upon->id();
+  }
 }
 

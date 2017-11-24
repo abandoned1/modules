@@ -2,8 +2,6 @@
   "use strict";
   Drupal.behaviors.kaoqin_upon = {
     attach: function (context) {
-      console.log('fdafdafd');
-
 
 			    var date = new Date();
 			    var d = date.getDate();
@@ -12,7 +10,8 @@
 
 			    var hdr = {
 			        left: 'title',
-			        center: 'month,agendaWeek,agendaDay',
+			        //center: 'month,agendaWeek,agendaDay',
+			        center: '月, 周, 日',
 			        right: 'prev,today,next'
 			    };
 
@@ -51,6 +50,7 @@
 			        initDrag(html);
 			    };
 
+
 			    /* initialize the external events
 				 -----------------------------------------------------------------*/
 
@@ -74,10 +74,28 @@
 
 			        header: hdr,
 			        editable: true,
+              weekMode: 'liquid',
 			        droppable: true, // this allows things to be dropped onto the calendar !!!
+              dragOpacity: {
+                  '': .6
+              },
+              buttonText: {
+                  today: '本月',
+                  month: '月',
+                  agendaWeek: '周',
+                  agendaDay: '日'
+              },
+              monthNames: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+              monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+              dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+              dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+              firstDay: 1,
+
+              allDayText: '全天',
+
+
 
 			        drop: function (date, allDay) { // this function is called when something is dropped
-
 			            // retrieve the dropped element's stored Event Object
 			            var originalEventObject = $(this).data('eventObject');
 
@@ -88,15 +106,37 @@
 			            copiedEventObject.start = date;
 			            copiedEventObject.allDay = allDay;
 
+                  var parameters = {};
+                  parameters['className'] = copiedEventObject.className;
+                  parameters['description'] = copiedEventObject.description;
+                  parameters['icon'] = copiedEventObject.icon;
+                  parameters['title'] = copiedEventObject.title;
+                  parameters['event_start'] = copiedEventObject.start._i;
+
+
+
 			            // render the event on the calendar
 			            // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-			            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
-			            // is the "remove after drop" checkbox checked?
-			            if ($('#drop-remove').is(':checked')) {
-			                // if so, remove the element from the "Draggable Events" list
-			                $(this).remove();
-			            }
+                  $.ajax({
+                    type: "POST",
+                    url: Drupal.url('ajax/kaoqin/upon/create'),
+                    data: parameters,
+                    success: function(data) {
+                      console.log(data);
+                      if (data > 0) {
+      			            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                      } else {
+                        alert('添加失败!');
+                      }
+                    }
+                  });
+
+                  // is the "remove after drop" checkbox checked?
+                  if ($('#drop-remove').is(':checked')) {
+                      // if so, remove the element from the "Draggable Events" list
+                      $(this).remove();
+                  }
 
 			        },
 
@@ -113,56 +153,12 @@
 			            }
 			            calendar.fullCalendar('unselect');
 			        },
-
-			        events: [{
-			            title: 'All Day Event',
-			            start: new Date(y, m, 1),
-			            description: 'long description',
-			            className: ["event", "bg-color-greenLight"],
-			            icon: 'fa-check'
-			        }, {
-			            title: 'Long Event',
-			            start: new Date(y, m, d - 5),
-			            end: new Date(y, m, d - 2),
-			            className: ["event", "bg-color-red"],
-			            icon: 'fa-lock'
-			        }, {
-			            id: 999,
-			            title: 'Repeating Event',
-			            start: new Date(y, m, d - 3, 16, 0),
-			            allDay: false,
-			            className: ["event", "bg-color-blue"],
-			            icon: 'fa-clock-o'
-			        }, {
-			            id: 999,
-			            title: 'Repeating Event',
-			            start: new Date(y, m, d + 4, 16, 0),
-			            allDay: false,
-			            className: ["event", "bg-color-blue"],
-			            icon: 'fa-clock-o'
-			        }, {
-			            title: 'Meeting',
-			            start: new Date(y, m, d, 10, 30),
-			            allDay: false,
-			            className: ["event", "bg-color-darken"]
-			        }, {
-			            title: 'Lunch',
-			            start: new Date(y, m, d, 12, 0),
-			            end: new Date(y, m, d, 14, 0),
-			            allDay: false,
-			            className: ["event", "bg-color-darken"]
-			        }, {
-			            title: 'Birthday Party',
-			            start: new Date(y, m, d + 1, 19, 0),
-			            end: new Date(y, m, d + 1, 22, 30),
-			            allDay: false,
-			            className: ["event", "bg-color-darken"]
-			        }, {
-			            title: 'Smartadmin Open Day',
-			            start: new Date(y, m, 28),
-			            end: new Date(y, m, 29),
-			            className: ["event", "bg-color-darken"]
-			        }],
+              events: {
+                  url: Drupal.url('ajax/kaoqin/upon/list'),
+                  error: function() {
+                      alert('there was an error while fetching events!');
+                  },
+              },
 
 			        eventRender: function (event, element, icon) {
 			            if (!event.description == "") {
@@ -174,14 +170,67 @@
 			                    " '></i>");
 			            }
 			        },
+              // 点击时触发
+              eventClick: function(event) {
+                console.log(event);
+              },
+
+              // 移动时触发
+              eventDrop: function(event) {
+                var parameters = {};
+                parameters['_id'] = event._id;
+                parameters['event_start'] = event.start._i;
+                if (event.end) {
+                  parameters['event_end'] = event.end._i;
+                }
+                $.ajax({
+                  type: "POST",
+                  url: Drupal.url('ajax/kaoqin/upon/update'),
+                  data: parameters,
+                  success: function(data) {
+                    if (data > 0) {
+                      //$('#calendar').fullCalendar('renderEvent', event, true);
+                    } else {
+                      alert('失败！');
+                    }
+                  }
+                });
+                $('#calendar').fullCalendar('updateEvent', event);
+              },
+
+              // 拉伸时触发
+              eventResize: function(event) {
+                var parameters = {};
+                parameters['_id'] = event._id;
+                parameters['event_start'] = event.start._i;
+                if (event.end) {
+                  parameters['event_end'] = event.end._i;
+                }
+                $.ajax({
+                  type: "POST",
+                  url: Drupal.url('ajax/kaoqin/upon/update'),
+                  data: parameters,
+                  success: function(data) {
+                    if (data > 0) {
+                      //$('#calendar').fullCalendar('renderEvent', event, true);
+                    } else {
+                      alert('失败！');
+                    }
+                  }
+                });
+                //$('#calendar').fullCalendar('updateEvent', event);
+              },
+
 
 			        windowResize: function (event, ui) {
-			            $('#calendar').fullCalendar('render');
+			          $('#calendar').fullCalendar('render');
+                $('#calendar').fullCalendar('updateEvent', event);
 			        }
+
 			    });
 
-			    /* hide default buttons */
-			    $('.fc-right, .fc-center').hide();
+			  /* hide default buttons */
+			  $('.fc-right, .fc-center').hide();
 
 
 				$('#calendar-buttons #btn-prev').click(function () {

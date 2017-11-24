@@ -79,9 +79,74 @@ entity.kaoqin.upon.listbuilder:
     _permission: 'administer kaoqin list builder'
 
 entity.kaoqin.upon.update:
-  path: 'admin/kaoqin/upon/update'
+  path: 'admin/kaoqin/upon/setting'
   defaults:
-    _controller: '\Drupal\kaoqin\Controller\KaoqinController::updateUpon'
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::settingUpon'
     _title: '排班设置'
   requirements:
     _permission: 'administer kaoqin overview'
+
+entity.upon.delete_form:
+  path: 'admin/kaoqin/upon/{upon}/delete'
+  defaults:
+    _entity_form: 'upon.delete'
+    _title: '添加排班'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+entity.kaoqin.upon.add:
+  path: 'admin/kaoqin/upon/add'
+  defaults:
+    _form: '\Drupal\kaoqin\Form\KaoqinAddEmpForm'
+    _title: '添加排班'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.create:
+  path: 'ajax/kaoqin/upon/create'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::createUpon'
+    _title: 'Ajax添加新的排班计划'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.list:
+  path: 'ajax/kaoqin/upon/list'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::listUpon'
+    _title: 'Ajax排班计划列表'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.update:
+  path: 'ajax/kaoqin/upon/update'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::updateUpon'
+    _title: 'Ajax更新排班'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+ajax.entity.kaoqin.upon.detail:
+  path: 'ajax/kaoqin/upon/detail'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::detailUpon'
+    _title: '排班详情'
+  requirements:
+    _permission: 'administer kaoqin upon edit'
+
+entity.kaoqin.diff:
+  path: 'admin/kaoqin/diff'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::getDiffKaoqin'
+    _title: '考勤差异'
+  requirements:
+    _permission: 'administer kaoqin overview'
+
+entity.kaoqin.statistic:
+  path: 'admin/kaoqin/statistic'
+  defaults:
+    _controller: '\Drupal\kaoqin\Controller\KaoqinController::getStatistic'
+    _title: '考勤统计'
+  requirements:
+    _permission: 'administer kaoqin statistic'
+

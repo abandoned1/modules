@@ -111,6 +111,11 @@ class KaoqinImportForm extends FormBase {
     $i = 0;
     foreach ($result as $row) {
       list($morning, $afternoon) = $this->getFirstAndLastTime($row);
+      // 屏蔽导入时未打卡的记录.
+      /**
+      if (!$morning && !$afternoon) {
+        continue;
+      }**/
       $datas[$i] = [
         'code' => $row['人员编号'],
         'emname' => $row['姓名'],
