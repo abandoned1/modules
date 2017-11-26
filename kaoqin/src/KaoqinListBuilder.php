@@ -20,7 +20,7 @@ class KaoqinListBuilder extends EntityListBuilder {
     $entity_query->condition('id', 0, '<>');
 
     $this->customizeSearchCondition($entity_query);
-    $entity_query->pager(50);
+    $entity_query->pager(31);
     $header = $this->buildHeader();
     $entity_query->tableSort($header);
     $ids = $entity_query->execute();
